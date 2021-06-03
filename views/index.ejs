@@ -15,7 +15,11 @@
     </form>
 
     <ul>
-        <li>This is where list will eventually go</li>
+    <% for(let i = 0; i < unicorn.length; i ++) { %>
+        <li>
+            <span><%= unicorn[i].item %></span>
+        </li>
+    <% } %>
     </ul>
 
 </body>

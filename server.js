@@ -22,7 +22,10 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 app.get("/", (req, res) => {
-    res.render("index.ejs")
+    db.collection("inventory").find().toArray()
+    .then(data => {
+        res.render("index.ejs", {unicorn: data})
+    })
 })
 
 app.post("/createItem", (req, res) => {
