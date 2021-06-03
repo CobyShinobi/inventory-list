@@ -2,9 +2,10 @@ const express = require("express")
 const app = express()
 const MongoClient = require("mongodb").MongoClient
 const PORT = 1337
+require("dotenv").config()
 
 let db,
-    dbConnectionStr = "mongodb+srv://shinobi:katana@cluster0.lp7t3.mongodb.net/inventory?retryWrites=true&w=majority",
+    dbConnectionStr = process.env.DB_STRING,
     dbName = "inventory"
 
 MongoClient.connect(dbConnectionStr, {useUnifiedTopology: true})
@@ -68,6 +69,6 @@ app.delete("/deleteItem", (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
     console.log("Server is running, better catch it!")
 })
