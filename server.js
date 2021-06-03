@@ -36,6 +36,15 @@ app.post("/createItem", (req, res) => {
     })
 })
 
+app.delete("/deleteItem", (req, res) => {
+    db.collection("inventory").deleteOne({item: req.body.rainbow})
+    .then(result => {
+        console.log("Deleted dat item")
+        res.json("Deleted It")
+    })
+    .catch(err => console.log(err))
+})
+
 app.listen(PORT, () => {
     console.log("Server is running, better catch it!")
 })
