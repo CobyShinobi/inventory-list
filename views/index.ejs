@@ -4,32 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Management List</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Login</title>
 </head>
 <body>
-    <h1>Inventory List</h1>
-
-    <form action="/createItem" method="POST">
-        <input type="text" placeholder="Enter Item" name="inventoryItem">
-        <input type="submit">
-    </form>
-
-    <ul>
-    <% for(let i = 0; i < unicorn.length; i ++) { %>
-        <li class="inventoryItem">
-            <% if(unicorn[i].completed === true) { %>
-            <span class="completed"><%= unicorn[i].item %></span>
-            <% }else { %>
-            <span><%= unicorn[i].item %></span>
-            <% } %>
-            <span class="del">Delete</span>
-        </li>
-    <% } %>
-    </ul>
-
-    <h2>Things left to get: <%= left %></h2>
-
-    <script src="js/main.js"></script>
+    <h1>Login to Inventory List</h1>
+    <a href="/inventory">New Inventory List</a>
 </body>
 </html>
