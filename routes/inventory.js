@@ -12,4 +12,4 @@ router.put("/undo", inventoryController.undo)
 
 router.delete("/deleteItem", inventoryController.deleteItem)
 
-module.export = router
+module.exports = router
