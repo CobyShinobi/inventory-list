@@ -10,22 +10,18 @@
 <body>
     <h1>Inventory List</h1>
 
-    <form action="/createItem" method="POST">
+    <form action="/inventory/createItem" method="POST">
         <input type="text" placeholder="Enter Item" name="inventoryItem">
         <input type="submit">
     </form>
 
     <ul>
-    <% for(let i = 0; i < unicorn.length; i ++) { %>
-        <li class="inventoryItem">
-            <% if(unicorn[i].completed === true) { %>
-            <span class="completed"><%= unicorn[i].item %></span>
-            <% }else { %>
-            <span><%= unicorn[i].item %></span>
-            <% } %>
+    <% items.forEach(el => { %>
+        <li class="inventoryItem" data-id="<%= el._id %>">
+            <span class="<%= el.completed === true ? 'completed' : 'not'%>"><%= el.item %></span>
             <span class="del">Delete</span>
         </li>
-    <% } %>
+    <% }) %>
     </ul>
 
     <h2>Things left to get: <%= left %></h2>

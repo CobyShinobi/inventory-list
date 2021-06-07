@@ -1,6 +1,6 @@
 const deleteBtn = document.querySelectorAll(".del")
-const inventoryItem = document.querySelectorAll(".inventoryItem span")
-const itemComplete = document.querySelectorAll(".inventoryItem span.completed")
+const inventoryItem = document.querySelectorAll("span.not")
+const itemComplete = document.querySelectorAll("span.completed")
 
 Array.from(deleteBtn).forEach((el) => {
     el.addEventListener("click", deleteItem)
@@ -15,13 +15,13 @@ Array.from(itemComplete).forEach((el) => {
 })
 
 async function deleteItem() {
-    const itemText = this.parentNode.childNodes[1].innerText
+    const itemId = this.parentNode.dataset.id
     try{
-        const response = await fetch("deleteItem", {
+        const response = await fetch("inventory/deleteItem", {
             method: "delete",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify({
-                "rainbow": itemText
+                "itemIdFromJSFile": itemId
             })
         })
         const data = await response.json()
@@ -33,13 +33,13 @@ async function deleteItem() {
 }
 
 async function completeItem() {
-    const itemText = this.parentNode.childNodes[1].innerText
+    const itemId = this.parentNode.dataset.id
     try{
-        const response = await fetch("completeItem", {
+        const response = await fetch("inventory/completeItem", {
             method: "put",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify({
-                "rainbow": itemText
+                "itemIdFromJSFile": itemText
             })
         })
         const data = await response.json()
@@ -53,11 +53,11 @@ async function completeItem() {
 async function undo() {
     const itemText = this.parentNode.childNodes[1].innerText
     try{
-        const response = await fetch("undo", {
+        const response = await fetch("inventory/undo", {
             method: "put",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify({
-                "rainbow": itemText
+                "itemIdFromJSFile": itemText
             })
         })
         const data = await response.json()
