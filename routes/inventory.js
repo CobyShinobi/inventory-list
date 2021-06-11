@@ -1,8 +1,9 @@
 const express = require("express")
 const router = express.Router()
 const inventoryController = require("../controllers/inventory")
+const {ensureAuth, ensureGuest} = require("../middleware/auth")
 
-router.get("/", inventoryController.getInventory)
+router.get("/", ensureAuth, inventoryController.getInventory)
 
 router.post("/createItem", inventoryController.createItem)
 
