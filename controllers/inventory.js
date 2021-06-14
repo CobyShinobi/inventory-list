@@ -4,7 +4,7 @@ module.exports = {
     getInventory: async (req, res) => {
         try {
             const inventoryItems = await Item.find()
-            const itemsLeft = await Item.countDocuments({completed: false})
+            const itemsLeft = await Item.countDocuments({microsoftId: req.user.microsoftId, completed: false})
             res.render("inventory.ejs", {items: inventoryItems, left: itemsLeft})
         } catch(err) {
             console.log(err)
