@@ -5,7 +5,7 @@ module.exports = {
         try {
             const inventoryItems = await Item.find({microsoftId: req.user.microsoftId})
             const itemsLeft = await Item.countDocuments({microsoftId: req.user.microsoftId, completed: false})
-            res.render("inventory.ejs", {items: inventoryItems, left: itemsLeft})
+            res.render("inventory.ejs", {items: inventoryItems, left: itemsLeft, user: req.user})
         } catch(err) {
             console.log(err)
         }
@@ -13,7 +13,7 @@ module.exports = {
 
     createItem: async (req, res) => {
         try {
-            await Item.create({item: req.body.inventoryItem, completed: false})
+            await Item.create({item: req.body.inventoryItem, completed: false, microsoftId: req.user.microsoftId})
             console.log("Added item!")
             res.redirect("/inventory")
         } catch(err) {
@@ -43,7 +43,7 @@ module.exports = {
     
     deleteItem: async (req, res) => {
         try {
-            await Item.findOneandDelete({_id: req.body.itemIdFromJSFile})
+            await Item.findOneAndDelete({_id: req.body.itemIdFromJSFile})
             console.log("Deleted item!")
             res.json("Deleted Item")
         } catch(err) {

@@ -1,17 +1,17 @@
 const deleteBtn = document.querySelectorAll(".del")
-const inventoryItem = document.querySelectorAll("span.not")
-const itemComplete = document.querySelectorAll("span.completed")
+const itemComplete = document.querySelectorAll("span.not")
+const itemIncomplete = document.querySelectorAll("span.completed")
 
 Array.from(deleteBtn).forEach((el) => {
     el.addEventListener("click", deleteItem)
 })
 
-Array.from(inventoryItem).forEach((el) => {
+Array.from(itemComplete).forEach((el) => {
     el.addEventListener("click", completeItem)
 })
 
-Array.from(itemComplete).forEach((el) => {
-    el.addEventListener("click", undo)
+Array.from(itemIncomplete).forEach((el) => {
+    el.addEventListener("click", undoItem)
 })
 
 async function deleteItem() {
@@ -39,7 +39,7 @@ async function completeItem() {
             method: "put",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify({
-                "itemIdFromJSFile": itemText
+                "itemIdFromJSFile": itemId
             })
         })
         const data = await response.json()
@@ -50,14 +50,14 @@ async function completeItem() {
     }
 }
 
-async function undo() {
-    const itemText = this.parentNode.childNodes[1].innerText
+async function undoItem() {
+    const itemId = this.parentNode.dataset.id
     try{
         const response = await fetch("inventory/undo", {
             method: "put",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify({
-                "itemIdFromJSFile": itemText
+                "itemIdFromJSFile": itemId
             })
         })
         const data = await response.json()
