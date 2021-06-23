@@ -3,7 +3,7 @@ const Item = require("../models/Item")
 module.exports = {
     getInventory: async (req, res) => {
         try {
-            const inventoryItems = await Item.find()
+            const inventoryItems = await Item.find({microsoftId: req.user.microsoftId})
             const itemsLeft = await Item.countDocuments({microsoftId: req.user.microsoftId, completed: false})
             res.render("inventory.ejs", {items: inventoryItems, left: itemsLeft})
         } catch(err) {

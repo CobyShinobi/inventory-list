@@ -7,6 +7,10 @@ const ItemSchema = new mongoose.Schema({
     completed: {
         type: Boolean,
         required: true
+    },
+    microsoftId: {
+        type: String,
+        required: true
     }
 })
 

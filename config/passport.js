@@ -1,7 +1,7 @@
-const OIDCStrategy = require('passport-azure-ad').OIDCStrategy
-const mongoose = require('mongoose')
-const config = require('../config/config')
-const User = require('../models/User')
+const OIDCStrategy = require("passport-azure-ad").OIDCStrategy
+const mongoose = require("mongoose")
+const config = require("../config/config")
+const User = require("../models/User")
 
 module.exports = function (passport) {
   passport.use(
@@ -26,7 +26,7 @@ module.exports = function (passport) {
         clockSkew: config.creds.clockSkew,
       },
       async (accessToken, refreshToken, profile, done) => {
-        console.log('auth: ', profile)
+        console.log("auth: ", profile)
         const newUser = {
           microsoftId: profile.oid,
           displayName: profile.displayName,

@@ -1,55 +1,55 @@
-const express = require('express')
-const passport = require('passport')
-const config = require('../config/config')
+const express = require("express")
+const passport = require("passport")
+const config = require("../config/config")
 const router = express.Router()
 
 
-router.get('/login',
+router.get("/login",
   function(req, res, next) {
-    passport.authenticate('azuread-openidconnect', 
+    passport.authenticate("azuread-openidconnect", 
       { 
         response: res,                      
         resourceURL: config.resourceURL,    
-        customState: 'my_state',            
-        failureRedirect: '/' 
+        customState: "my_state",            
+        failureRedirect: "/" 
       }
     )(req, res, next);
   },
   function(req, res) {
-    console.log('Login was called in the Sample');
-    res.redirect('/inventory');
+    console.log("Login was called in the Sample");
+    res.redirect("/inventory");
 });
 
-router.get('/openid/return',
+router.get("/openid/return",
   function(req, res, next) {
-    passport.authenticate('azuread-openidconnect', 
+    passport.authenticate("azuread-openidconnect", 
       { 
         response: res,    
-        failureRedirect: '/'  
+        failureRedirect: "/"  
       }
     )(req, res, next);
   },
   function(req, res) {
-    console.log('We received a return from AzureAD.');
-    res.redirect('/inventory');
+    console.log("We received a return from AzureAD.");
+    res.redirect("/inventory");
   });
 
-router.post('/openid/return',
+router.post("/openid/return",
   function(req, res, next) {
-    passport.authenticate('azuread-openidconnect', 
+    passport.authenticate("azuread-openidconnect", 
       { 
         response: res,    
-        failureRedirect: '/'  
+        failureRedirect: "/"  
       }
     )(req, res, next);
   },
   function(req, res) {
-    console.log('We received a return from AzureAD.');
-    res.redirect('/inventory');
+    console.log("We received a return from AzureAD.");
+    res.redirect("/inventory");
   });
 
 
-router.get('/logout', function(req, res){
+router.get("/logout", function(req, res){
   req.session.destroy(function(err) {
     req.logOut();
     res.redirect(config.destroySessionUrl);
